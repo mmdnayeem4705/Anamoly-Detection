@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Sight - AI-Powered Security Solutions</title>
+    <title>Nayeems Security - AI-Powered Security Solutions</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml"
@@ -20,7 +20,7 @@
         <div class="nav-content">
             <div class="logo">
                 <i class="fas fa-shield-alt"></i>
-                <span>Secure Sight</span>
+                <span>Nayeems Security</span>
             </div>
             <div class="nav-links">
                 <a href="#home">Home</a>
@@ -55,7 +55,7 @@
     <!-- Demo Section -->
     <section id="demo" class="demo-section">
         <div class="section-content" style="flex-direction: row-reverse;">
-            <!-- Video on the right -->
+            <!-- First Demo Panel -->
             <div class="video-container" style="flex: 1;">
                 <div class="placeholder-video" style="width: 100%; aspect-ratio: 16 / 9;">
                     <iframe width="100%" height="100%" src="https://www.youtube.com/embed/AkmkU6r5ja4" frameborder="0"
@@ -67,21 +67,44 @@
                     <i class="fas fa-play"></i>
                 </button>
             </div>
-            <!-- Anomaly detection UI on the left -->
             <div class="demo-text" style="flex: 1;">
-                <h2>Unwanted Incident Detection</h2>
+                <h2>Unwanted Incident Detection (Demo 1)</h2>
                 <p>Our AI system monitors for anomalies and unwanted incidents in real-time.</p>
-                <div id="anomaly-result" style="margin: 1rem 0; font-weight: bold; color: #e74c3c;">
+                <div id="anomaly-result-1" style="margin: 1rem 0; font-weight: bold; color: #e74c3c;">
                     No anomaly detected.
                 </div>
-                <button id="capture-scene" class="cta-button" style="margin-bottom: 1rem;">Capture Scene</button>
-                <div id="scene-capture-preview"></div>
-                <!-- Add anomaly gallery below scene preview -->
-                <div id="anomaly-gallery" style="margin-top:2rem;">
+                <button id="capture-scene-1" class="cta-button" style="margin-bottom: 1rem;">Capture Scene</button>
+                <div id="scene-capture-preview-1"></div>
+                <div id="anomaly-gallery-1" style="margin-top:2rem;">
                     <h2>Detected Anomaly Images</h2>
-                    <div id="anomaly-images" style="display:flex;flex-wrap:wrap;gap:20px;"></div>
+                    <div id="anomaly-images-1" style="display:flex;flex-wrap:wrap;gap:20px;"></div>
                 </div>
-                <button class="try-live-button">Try Live Demo</button>
+            </div>
+        </div>
+        <!-- Second Demo Panel -->
+        <div class="section-content" style="margin-top:4rem;flex-direction: row-reverse;">
+            <div class="video-container" style="flex: 1;">
+                <div class="placeholder-video" style="width: 100%; aspect-ratio: 16 / 9;">
+                    <video id="second-anomaly-video" width="100%" controls
+                        style="border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                        <source src="video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="demo-text" style="flex: 1;">
+                <h2>Unwanted Incident Detection (Demo 2)</h2>
+                <p>Our AI system monitors for anomalies and unwanted incidents in real-time.</p>
+                <div id="anomaly-result-2" style="margin: 1rem 0; font-weight: bold; color: #e74c3c;">
+                    No anomaly detected.
+                </div>
+                <button id="capture-scene-2" class="cta-button" style="margin-bottom: 1rem;">Capture Scene</button>
+                <div id="scene-capture-preview-2"></div>
+                <div id="anomaly-gallery-2" style="margin-top:2rem;">
+                    <h2>Detected Anomaly Images</h2>
+                    <div id="anomaly-images-2" style="display:flex;flex-wrap:wrap;gap:20px;"></div>
+                </div>
+                <button class="try-live-button" id="try-live-demo">Try Live Demo</button>
             </div>
         </div>
     </section>
@@ -636,54 +659,105 @@
                 }
             });
 
-            const tryLiveButton = document.querySelector('.try-live-button');
-            const videoModal = document.getElementById('videoModal');
-            const video = document.getElementById('demoVideo');
+            // Demo 1 anomaly detection simulation
+            const anomalyResult1 = document.getElementById('anomaly-result-1');
+            const captureSceneBtn1 = document.getElementById('capture-scene-1');
+            const scenePreview1 = document.getElementById('scene-capture-preview-1');
+            let anomalyDetected1 = false;
 
-            tryLiveButton.addEventListener('click', async () => {
+            setInterval(() => {
+                anomalyDetected1 = Math.random() > 0.7;
+                anomalyResult1.textContent = anomalyDetected1 ? "Unwanted Incident Detected! (e.g., weapon sighted)" : "No anomaly detected.";
+                anomalyResult1.style.color = anomalyDetected1 ? "#e74c3c" : "#2563eb";
+            }, 8000);
+
+            captureSceneBtn1.addEventListener('click', () => {
+                if (anomalyDetected1) {
+                    scenePreview1.innerHTML = `<div style="color:#2563eb;font-weight:bold;">Scene captured and saved for review.</div>`;
+                } else {
+                    scenePreview1.innerHTML = `<div style="color:#aaa;">No anomaly to capture.</div>`;
+                }
+                setTimeout(() => { scenePreview1.innerHTML = ""; }, 3000);
+                loadAnomalyImages1();
+            });
+
+            async function loadAnomalyImages1() {
+                const galleryDiv = document.getElementById('anomaly-images-1');
+                galleryDiv.innerHTML = '';
                 try {
-                    // Show video and play
-                    videoModal.style.display = 'block';
-                    await video.play();
-
-                    // Request fullscreen
-                    if (video.requestFullscreen) {
-                        await video.requestFullscreen();
-                    } else if (video.webkitRequestFullscreen) { // Safari
-                        await video.webkitRequestFullscreen();
-                    } else if (video.msRequestFullscreen) { // IE11
-                        await video.msRequestFullscreen();
-                    }
+                    const response = await fetch('/anomaly_images_list');
+                    const images = await response.json();
+                    images.forEach(img => {
+                        const imgElem = document.createElement('img');
+                        imgElem.src = `/ml/anomaly_images/${img}`;
+                        imgElem.alt = img;
+                        imgElem.style.width = '220px';
+                        imgElem.style.borderRadius = '8px';
+                        imgElem.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                        galleryDiv.appendChild(imgElem);
+                    });
                 } catch (err) {
-                    console.error('Error:', err);
+                    galleryDiv.innerHTML = '<div style="color:#e74c3c;">Could not load anomaly images.</div>';
                 }
+            }
+            document.addEventListener('DOMContentLoaded', loadAnomalyImages1);
+
+            // Demo 2 anomaly detection simulation
+            const anomalyResult2 = document.getElementById('anomaly-result-2');
+            const captureSceneBtn2 = document.getElementById('capture-scene-2');
+            const scenePreview2 = document.getElementById('scene-capture-preview-2');
+            let anomalyDetected2 = false;
+
+            setInterval(() => {
+                anomalyDetected2 = Math.random() > 0.7;
+                anomalyResult2.textContent = anomalyDetected2 ? "Unwanted Incident Detected! (e.g., weapon sighted)" : "No anomaly detected.";
+                anomalyResult2.style.color = anomalyDetected2 ? "#e74c3c" : "#2563eb";
+            }, 8000);
+
+            captureSceneBtn2.addEventListener('click', () => {
+                if (anomalyDetected2) {
+                    scenePreview2.innerHTML = `<div style="color:#2563eb;font-weight:bold;">Scene captured and saved for review.</div>`;
+                } else {
+                    scenePreview2.innerHTML = `<div style="color:#aaa;">No anomaly to capture.</div>`;
+                }
+                setTimeout(() => { scenePreview2.innerHTML = ""; }, 3000);
+                loadAnomalyImages2();
             });
 
-            // Handle exit fullscreen
-            document.addEventListener('fullscreenchange', () => {
-                if (!document.fullscreenElement) {
-                    videoModal.style.display = 'none';
-                    video.pause();
-                    video.currentTime = 0;
+            async function loadAnomalyImages2() {
+                const galleryDiv = document.getElementById('anomaly-images-2');
+                galleryDiv.innerHTML = '';
+                try {
+                    const response = await fetch('/anomaly_images_list');
+                    const images = await response.json();
+                    images.forEach(img => {
+                        const imgElem = document.createElement('img');
+                        imgElem.src = `/ml/anomaly_images/${img}`;
+                        imgElem.alt = img;
+                        imgElem.style.width = '220px';
+                        imgElem.style.borderRadius = '8px';
+                        imgElem.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                        galleryDiv.appendChild(imgElem);
+                    });
+                } catch (err) {
+                    galleryDiv.innerHTML = '<div style="color:#e74c3c;">Could not load anomaly images.</div>';
                 }
-            });
+            }
+            document.addEventListener('DOMContentLoaded', loadAnomalyImages2);
 
-            // For Safari
-            document.addEventListener('webkitfullscreenchange', () => {
-                if (!document.webkitFullscreenElement) {
-                    videoModal.style.display = 'none';
-                    video.pause();
-                    video.currentTime = 0;
+            // Try Live Demo button for Demo 2
+            const tryLiveButton = document.getElementById('try-live-demo');
+            const secondAnomalyVideo = document.getElementById('second-anomaly-video');
+            tryLiveButton.addEventListener('click', async () => {
+                secondAnomalyVideo.scrollIntoView({ behavior: 'smooth' });
+                secondAnomalyVideo.play();
+                if (secondAnomalyVideo.requestFullscreen) {
+                    await secondAnomalyVideo.requestFullscreen();
+                } else if (secondAnomalyVideo.webkitRequestFullscreen) {
+                    await secondAnomalyVideo.webkitRequestFullscreen();
+                } else if (secondAnomalyVideo.msRequestFullscreen) {
+                    await secondAnomalyVideo.msRequestFullscreen();
                 }
-            });
-
-            const closeModalButton = document.querySelector('.close-modal');
-
-            closeModalButton.addEventListener('click', () => {
-                videoModal.style.display = 'none';
-                // Stop the video when closing the modal
-                const videoFrame = document.getElementById('demoVideo');
-                videoFrame.src = videoFrame.src;
             });
 
             // Close modal when clicking outside
