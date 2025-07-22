@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anomaly Image Gallery</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8fafc; }
+        h1 { text-align: center; margin: 2rem 0; }
+        .gallery { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .gallery img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: 320px; height: auto; }
+        .img-title { text-align: center; font-size: 1rem; margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+    <h1>Anomaly Detection Screenshots</h1>
+    <div class="gallery">
+        {% for img in images %}
+            <div>
+                <img src="{{ url_for('anomaly_image', filename=img) }}" alt="{{ img }}">
+                <div class="img-title">{{ img }}</div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Sight - AI-Powered Security Solutions</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%230066ff' d='M466.5 83.7l-192-80a48.15 48.15 0 0 0-36.9 0l-192 80C27.7 91.1 16 108.6 16 128c0 198.5 114.5 335.7 221.5 380.3 11.8 4.9 25.1 4.9 36.9 0C360.1 472.6 496 349.3 496 128c0-19.4-11.7-36.9-29.5-44.3z'/></svg>" />
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Secure Sight</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#demo">Demo</a>
+                <a href="#report">Report Crime</a>
+                <a href="#team">Team</a>
+            </div>
+            <button class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- GitHub Corner Button -->
+    <div class="github-corner">
+        <a href="https://github.com/mmdnayeem4705/Anamoly-Detection" target="_blank" class="github-link">
+            <i class="fab fa-github"></i>
+            <span>Get Code</span>
+        </a>
+    </div>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>AI-Powered Security Solutions</h1>
+            <p>Enhancing safety through real-time weapon detection and instant alerts</p>
+            <a href="#demo" class="cta-button">Watch Demo</a>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-content" style="flex-direction: row-reverse;">
+            <!-- Video on the right -->
+            <div class="video-container" style="flex: 1;">
+                <div class="placeholder-video" style="width: 100%; aspect-ratio: 16 / 9;">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/AkmkU6r5ja4" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <button class="play-button" onclick="document.getElementById('videoModal').style.display='block'">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+            <!-- Anomaly detection UI on the left -->
+            <div class="demo-text" style="flex: 1;">
+                <h2>Unwanted Incident Detection</h2>
+                <p>Our AI system monitors for anomalies and unwanted incidents in real-time.</p>
+                <div id="anomaly-result" style="margin: 1rem 0; font-weight: bold; color: #e74c3c;">
+                    No anomaly detected.
+                </div>
+                <button id="capture-scene" class="cta-button" style="margin-bottom: 1rem;">Capture Scene</button>
+                <div id="scene-capture-preview"></div>
+                <!-- Add anomaly gallery below scene preview -->
+                <div id="anomaly-gallery" style="margin-top:2rem;">
+                    <h2>Detected Anomaly Images</h2>
+                    <div id="anomaly-images" style="display:flex;flex-wrap:wrap;gap:20px;"></div>
+                </div>
+                <button class="try-live-button">Try Live Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="report" class="report-section">
+        <div class="section-content">
+            <div class="report-container">
+                <h2>Report an Incident</h2>
+                <form id="report-form" class="report-form">
+                    <div class="form-group">
+                        <label for="description">Incident Description</label>
+                        <textarea id="description" required
+                            placeholder="Please describe what you witnessed..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <div id="location-display">Fetching location...</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Media Upload</label>
+                        <div class="media-toggle">
+                            <button type="button" class="active" data-type="upload">
+                                <i class="fas fa-upload"></i> Upload
+                            </button>
+                            <button type="button" data-type="capture">
+                                <i class="fas fa-camera"></i> Capture
+                            </button>
+                        </div>
+                        <input type="file" id="file-upload" accept="image/*,video/*" style="display: none;">
+                        <video id="camera-feed" style="display: none;" autoplay playsinline></video>
+                        <canvas id="photo-canvas" style="display: none;"></canvas>
+                        <div id="media-preview"></div>
+                    </div>
+                    <button type="submit" class="submit-button">Send Report</button>
+                </form>
+            </div>
+            <div class="report-image">
+                <i class="fas fa-user-shield"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section id="challenges" class="challenges-section">
+        <h2>Key Challenges We Solve</h2>
+        <div class="challenges-container">
+            <div class="challenge-card">
+                <i class="fas fa-clock"></i>
+                <h3>Real-time Detection</h3>
+                <p>Instant weapon detection using advanced AI algorithms</p>
+            </div>
+            <div class="challenge-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Rapid Response</h3>
+                <p>Immediate alert system with automated notification to security personnel.</p>
+            </div>
+            <div class="challenge-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Evidence Management</h3>
+                <p>Secure storage and management of detection events and evidence.</p>
+            </div>
+            <div class="challenge-card">
+                <i class="fas fa-user-secret"></i>
+                <h3>Anonymous Reporting</h3>
+                <p>Report incidents securely with location, description, and evidence while maintaining anonymity.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Flow Diagram Section -->
+    <section id="flow" class="flow-section">
+        <h2>How It Works</h2>
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <i class="fas fa-video"></i>
+                <h3>Camera Input</h3>
+            </div>
+            <div class="flow-arrow" data-tooltip="Real-time video processing">→</div>
+            <div class="flow-step">
+                <i class="fas fa-brain"></i>
+                <h3>ML Model</h3>
+            </div>
+            <div class="flow-arrow" data-tooltip="Secure storage of evidence">→</div>
+            <div class="flow-step">
+                <i class="fas fa-database"></i>
+                <h3>S3 Storage</h3>
+            </div>
+            <div class="flow-arrow" data-tooltip="Alert distribution">→</div>
+            <div class="flow-step">
+                <i class="fas fa-bell"></i>
+                <h3>Alert System</h3>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="team" class="team-section">
+        <h2>My Info</h2>
+        <div class="team-cards">
+            <div class="team-card">
+                <div class="profile-image">
+                    <img src="portrait_with_glasses_desktop.png"
+                        alt="Akash Nallagonda"
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
+                <h3>M Mohammed Nayeem</h3>
+                <p> Gitam University</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodballapura, Karnataka</p>
+                <div class="social-links">
+                    <a href="https://github.com/mmdnayeem4705"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/mohammed-nayeem-123456/"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p><i class="fas fa-envelope"></i> mmdnayeem4705@gmail.com</p>
+            </div>
+            
+        </div>
+    </section>
+    <!-- Technologies Section -->
+    <section id="technologies" class="tech-section">
+        <h2>Powered by Advanced Technology</h2>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <i class="fab fa-python"></i>
+                <h3>Python</h3>
+                <p>Core processing engine</p>
+            </div>
+            <div class="tech-card">
+                <i class="fas fa-brain"></i>
+                <h3>YOLO</h3>
+                <p>Real-time object detection</p>
+            </div>
+            <div class="tech-card">
+                <i class="fab fa-aws"></i>
+                <h3>AWS S3</h3>
+                <p>Secure data storage</p>
+            </div>
+            <div class="tech-card">
+                <i class="fas fa-comment-dots"></i>
+                <h3>Twilio API</h3>
+                <p>Instant notifications</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Secure Sight. All rights reserved by Nayeem.</p>
+    </footer>
+
+    <!-- AWS SDK -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1349.0.min.js"></script>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <iframe id="demoVideo" src="https://www.youtube.com/embed/AqQ-8Lrhcg0" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <style>
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            aspect-ratio: 16/9;
+        }
+
+        #demoVideo {
+            width: 100%;
+            height: 100%;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: -40px;
+            top: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .close-modal:hover {
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .close-modal {
+                right: 0;
+                top: -40px;
+            }
+        }
+    </style>
+
+    <script>
+
+        // config.js
+        const config = {
+            TWILIO_ACCOUNT_SID: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            TWILIO_AUTH_TOKEN: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            TWILIO_PHONE_NUMBER: 'whatsapp:+10000000000', // Twilio WhatsApp sandbox number
+            RECIPIENT_PHONE_NUMBER: 'whatsapp:+19999999999', // Recipient's WhatsApp number
+
+            AWS_ACCESS_KEY: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            AWS_SECRET_KEY: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            AWS_REGION: 'us-east-1',
+            S3_BUCKET_NAME: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Parallax effect
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
+            });
+
+            // Report form functionality
+            const form = document.getElementById('report-form');
+            const mediaToggle = document.querySelector('.media-toggle');
+            const fileUpload = document.getElementById('file-upload');
+            const cameraFeed = document.getElementById('camera-feed');
+            const photoCanvas = document.getElementById('photo-canvas');
+            const mediaPreview = document.getElementById('media-preview');
+            let stream = null;
+            let locationData = null;
+
+            // Add this function to get location
+            async function getCurrentLocation() {
+                return new Promise((resolve, reject) => {
+                    if (!navigator.geolocation) {
+                        reject('Geolocation is not supported by your browser');
+                        return;
+                    }
+
+                    navigator.geolocation.getCurrentPosition(
+                        position => {
+                            resolve({
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude
+                            });
+                        },
+                        error => {
+                            reject('Unable to access location. Please allow location access.');
+                        }
+                    );
+                });
+            }
+
+            // Media toggle handlers
+            mediaToggle.addEventListener('click', async (e) => {
+                if (e.target.closest('button')) {
+                    const buttons = mediaToggle.querySelectorAll('button');
+                    buttons.forEach(btn => btn.classList.remove('active'));
+
+                    const clickedButton = e.target.closest('button');
+                    clickedButton.classList.add('active');
+
+                    if (clickedButton.dataset.type === 'upload') {
+                        stopCamera();
+                        fileUpload.click();
+                    } else if (clickedButton.dataset.type === 'capture') {
+                        startCamera();
+                    }
+                }
+            });
+
+            // File upload handler
+            fileUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        mediaPreview.innerHTML = `
+                            <img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 300px;">
+                            <button type="button" class="remove-media">×</button>
+                        `;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Camera functions
+            async function startCamera() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    cameraFeed.srcObject = stream;
+                    cameraFeed.style.display = 'block';
+                    mediaPreview.innerHTML = `
+                        <div style="text-align: center;">
+                            <button type="button" id="capture-photo">
+                                <i class="fas fa-camera"></i> Take Photo
+                            </button>
+                            <button type="button" id="close-camera">
+                                <i class="fas fa-times"></i> Close Camera
+                            </button>
+                        </div>
+                    `;
+
+                    // Add close camera handler
+                    document.getElementById('close-camera').addEventListener('click', () => {
+                        stopCamera();
+                        mediaPreview.innerHTML = '';
+                    });
+                } catch (err) {
+                    alert('Unable to access camera. Please ensure you have granted camera permissions.');
+                }
+            }
+
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    cameraFeed.style.display = 'none';
+                    stream = null;
+                }
+            }
+
+            // Capture photo
+            mediaPreview.addEventListener('click', (e) => {
+                if (e.target.id === 'capture-photo') {
+                    const context = photoCanvas.getContext('2d');
+                    photoCanvas.width = cameraFeed.videoWidth;
+                    photoCanvas.height = cameraFeed.videoHeight;
+                    context.drawImage(cameraFeed, 0, 0);
+
+                    const photoData = photoCanvas.toDataURL('image/jpeg');
+                    mediaPreview.innerHTML = `
+                        <img src="${photoData}" alt="Captured photo" style="max-width: 100%; max-height: 300px;">
+                        <button type="button" class="remove-media">×</button>
+                    `;
+                    stopCamera();
+                } else if (e.target.classList.contains('remove-media')) {
+                    mediaPreview.innerHTML = '';
+                    fileUpload.value = '';
+                }
+            });
+
+            // AWS Configuration
+            AWS.config.update({
+                accessKeyId: config.AWS_ACCESS_KEY,
+                secretAccessKey: config.AWS_SECRET_KEY,
+                region: config.AWS_REGION
+            });
+
+            const s3 = new AWS.S3();
+
+            // Function to upload to S3
+            async function uploadToS3(file, fileName) {
+                const params = {
+                    Bucket: config.S3_BUCKET_NAME,
+                    Key: `reports/${Date.now()}-${fileName}`,
+                    Body: file,
+                    ContentType: file.type || 'image/jpeg',
+                    CORSConfiguration: {
+                        CORSRules: [
+                            {
+                                AllowedHeaders: ["*"],
+                                AllowedMethods: ["GET", "HEAD", "POST", "PUT"],
+                                AllowedOrigins: ["*"],
+                                ExposeHeaders: ["ETag"]
+                            }
+                        ]
+                    }
+                };
+
+                try {
+                    const data = await s3.upload(params).promise();
+                    return data.Location; // Returns the public URL of the uploaded file
+                } catch (error) {
+                    console.error('Error uploading to S3:', error);
+                    throw error;
+                }
+            }
+
+            // Function to convert base64 to blob
+            function base64ToBlob(base64, contentType = 'image/jpeg') {
+                const byteCharacters = atob(base64.split(',')[1]);
+                const byteArrays = [];
+
+                for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+                    const slice = byteCharacters.slice(offset, offset + 512);
+                    const byteNumbers = new Array(slice.length);
+
+                    for (let i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
+
+                    const byteArray = new Uint8Array(byteNumbers);
+                    byteArrays.push(byteArray);
+                }
+
+                return new Blob(byteArrays, { type: contentType });
+            }
+
+            // Function to send WhatsApp alert using Twilio
+            async function sendWhatsAppAlert(description, location, imageUrl = null) {
+                // Use existing config object that contains Twilio credentials
+                const url = `https://api.twilio.com/2010-04-01/Accounts/${config.TWILIO_ACCOUNT_SID}/Messages.json`;
+                const auth = btoa(`${config.TWILIO_ACCOUNT_SID}:${config.TWILIO_AUTH_TOKEN}`);
+
+                // Customize the alert message
+                const alertMessage =
+                    `🚨 SECURITY ALERT! 🚨\n\n` +
+                    `📍 Location: ${location}\n` +
+                    `📝 Description: ${description}\n\n` +
+                    `⏰ Time: ${new Date().toLocaleString()}\n` +
+                    `🎥 Evidence has been uploaded to our secure database.`;
+
+                try {
+                    const formData = new URLSearchParams();
+                    formData.append('To', config.RECIPIENT_PHONE_NUMBER);
+                    formData.append('From', config.TWILIO_PHONE_NUMBER);
+                    formData.append('Body', alertMessage);
+
+                    if (imageUrl) {
+                        formData.append('MediaUrl', imageUrl);
+                    }
+
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Basic ${auth}`,
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    console.log('WhatsApp alert sent successfully:', data.sid);
+                    return true;
+                } catch (error) {
+                    console.error('Error sending WhatsApp alert:', error);
+                    throw error;
+                }
+            }
+
+            // Update the form submission handler to include the WhatsApp alert
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Get the submit button and store its original text FIRST
+                const submitButton = form.querySelector('.submit-button');
+                const originalButtonText = submitButton.innerHTML;
+
+                try {
+                    // Show loading state
+                    submitButton.innerHTML = 'Sending Alert... <span class="spinner"></span>';
+                    submitButton.disabled = true;
+
+                    // Get location
+                    locationData = await getCurrentLocation();
+                    const locationString = `${locationData.latitude.toFixed(4)}, ${locationData.longitude.toFixed(4)}`;
+
+                    // Upload image if exists
+                    let imageUrl = null;
+                    const previewImage = mediaPreview.querySelector('img');
+                    if (previewImage) {
+                        const imageSource = previewImage.src;
+                        if (imageSource.startsWith('data:')) {
+                            // It's a base64 image (captured photo)
+                            const photoBlob = base64ToBlob(imageSource);
+                            imageUrl = await uploadToS3(photoBlob, `capture-${Date.now()}.jpg`);
+                        } else if (fileUpload.files[0]) {
+                            // It's a file upload
+                            imageUrl = await uploadToS3(fileUpload.files[0], fileUpload.files[0].name);
+                        }
+                    }
+
+                    // Send WhatsApp alert with the form data
+                    await sendWhatsAppAlert(
+                        document.getElementById('description').value,
+                        locationString,
+                        imageUrl
+                    );
+
+                    // Show success message
+                    alert('Alert sent successfully!');
+
+                    // Reset form
+                    form.reset();
+                    mediaPreview.innerHTML = '';
+                    document.getElementById('location-display').textContent = 'Location will be captured on submission';
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error sending alert: ' + error.message);
+                } finally {
+                    // Reset button state
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                }
+            });
+
+            // Hamburger menu functionality
+            const hamburger = document.querySelector(".hamburger");
+            const navLinks = document.querySelector(".nav-links");
+            const navLinksItems = document.querySelectorAll(".nav-links a");
+
+            hamburger.addEventListener("click", () => {
+                // Toggle hamburger menu
+                hamburger.classList.toggle("active");
+                navLinks.classList.toggle("active");
+            });
+
+            // Close menu when a link is clicked
+            navLinksItems.forEach(link => {
+                link.addEventListener("click", () => {
+                    hamburger.classList.remove("active");
+                    navLinks.classList.remove("active");
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener("click", (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove("active");
+                    navLinks.classList.remove("active");
+                }
+            });
+
+            const tryLiveButton = document.querySelector('.try-live-button');
+            const videoModal = document.getElementById('videoModal');
+            const video = document.getElementById('demoVideo');
+
+            tryLiveButton.addEventListener('click', async () => {
+                try {
+                    // Show video and play
+                    videoModal.style.display = 'block';
+                    await video.play();
+
+                    // Request fullscreen
+                    if (video.requestFullscreen) {
+                        await video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) { // Safari
+                        await video.webkitRequestFullscreen();
+                    } else if (video.msRequestFullscreen) { // IE11
+                        await video.msRequestFullscreen();
+                    }
+                } catch (err) {
+                    console.error('Error:', err);
+                }
+            });
+
+            // Handle exit fullscreen
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    videoModal.style.display = 'none';
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            });
+
+            // For Safari
+            document.addEventListener('webkitfullscreenchange', () => {
+                if (!document.webkitFullscreenElement) {
+                    videoModal.style.display = 'none';
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            });
+
+            const closeModalButton = document.querySelector('.close-modal');
+
+            closeModalButton.addEventListener('click', () => {
+                videoModal.style.display = 'none';
+                // Stop the video when closing the modal
+                const videoFrame = document.getElementById('demoVideo');
+                videoFrame.src = videoFrame.src;
+            });
+
+            // Close modal when clicking outside
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    // Stop the video when closing the modal
+                    const videoFrame = document.getElementById('demoVideo');
+                    videoFrame.src = videoFrame.src;
+                }
+            });
+
+            // Demo anomaly detection simulation
+            const anomalyResult = document.getElementById('anomaly-result');
+            const captureSceneBtn = document.getElementById('capture-scene');
+            const scenePreview = document.getElementById('scene-capture-preview');
+            let anomalyDetected = false;
+
+            // Simulate anomaly detection every 8 seconds
+            setInterval(() => {
+                anomalyDetected = Math.random() > 0.7;
+                anomalyResult.textContent = anomalyDetected ? "Unwanted Incident Detected! (e.g., weapon sighted)" : "No anomaly detected.";
+                anomalyResult.style.color = anomalyDetected ? "#e74c3c" : "#2563eb";
+            }, 8000);
+
+            // Simulate scene capture
+            captureSceneBtn.addEventListener('click', () => {
+                if (anomalyDetected) {
+                    scenePreview.innerHTML = `<div style="color:#2563eb;font-weight:bold;">Scene captured and saved for review.</div>`;
+                } else {
+                    scenePreview.innerHTML = `<div style="color:#aaa;">No anomaly to capture.</div>`;
+                }
+                setTimeout(() => { scenePreview.innerHTML = ""; }, 3000);
+            });
+
+            // Function to fetch and display anomaly images from Flask endpoint
+            async function loadAnomalyImages() {
+                const galleryDiv = document.getElementById('anomaly-images');
+                galleryDiv.innerHTML = '';
+                try {
+                    const response = await fetch('/anomaly_images_list');
+                    const images = await response.json();
+                    images.forEach(img => {
+                        const imgElem = document.createElement('img');
+                        imgElem.src = `/ml/anomaly_images/${img}`; // <-- matches Flask route
+                        imgElem.alt = img;
+                        imgElem.style.width = '220px';
+                        imgElem.style.borderRadius = '8px';
+                        imgElem.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                        galleryDiv.appendChild(imgElem);
+                    });
+                } catch (err) {
+                    galleryDiv.innerHTML = '<div style="color:#e74c3c;">Could not load anomaly images.</div>';
+                }
+            }
+
+            // Call loadAnomalyImages after scene capture
+            captureSceneBtn.addEventListener('click', () => {
+                if (anomalyDetected) {
+                    scenePreview.innerHTML = `<div style="color:#2563eb;font-weight:bold;">Scene captured and saved for review.</div>`;
+                } else {
+                    scenePreview.innerHTML = `<div style="color:#aaa;">No anomaly to capture.</div>`;
+                }
+                setTimeout(() => { scenePreview.innerHTML = ""; }, 3000);
+                loadAnomalyImages();
+            });
+
+            // Optionally, load images on page load
+            document.addEventListener('DOMContentLoaded', loadAnomalyImages);
+        });
+
+        // Challenges Accordion
+        const challenges = document.querySelectorAll('.challenge');
+
+        challenges.forEach(challenge => {
+            const header = challenge.querySelector('.challenge-header');
+            header.addEventListener('click', () => {
+                const currentlyActive = document.querySelector('.challenge.active');
+                if (currentlyActive && currentlyActive !== challenge) {
+                    currentlyActive.classList.remove('active');
+                }
+                challenge.classList.toggle('active');
+            });
+        });
+
+        // Add loading spinner styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .spinner {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 3px solid rgba(255,255,255,.3);
+                border-radius: 50%;
+                border-top-color: #fff;
+                animation: spin 1s ease-in-out infinite;
+                margin-left: 10px;
+            }
+
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+
+            .submit-button:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>
