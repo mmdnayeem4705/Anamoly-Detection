@@ -162,6 +162,7 @@ http://localhost:3000
 
 ---
 
+
 ## 🧗 Challenges Faced
 
 * Reducing false positives from object detection.
@@ -211,5 +212,9 @@ git add README.md
 git commit -m "Added complete project README"
 git push origin main
 ````
-
-Want this exported directly as a file to upload? Just say `yes` and I’ll generate it instantly.
+<img width="1920" height="1080" alt="Screenshot (35)" src="https://github.com/user-attachments/assets/eda1a1d9-d273-4576-aca4-e412bd915ea6" />
+<img width="1920" height="1080" alt="Screenshot (34)" src="https://github.com/user-attachments/assets/f099cd14-61a3-414b-8a01-5ff2db462cfd" />
+<img width="1920" height="1080" alt="Screenshot (25)" src="https://github.com/user-attachments/assets/860ca9bb-b7e2-4eba-8f24-6730704506e2" />
+<img width="1920" height="1080" alt="Screenshot (26)" src="https://github.com/user-attachments/assets/12b4ba9f-aa30-4039-9330-3bb4a1014ff3" />
+<img width="1920" height="1080" alt="Screenshot (27)" src="https://github.com/user-attachments/assets/9a3ac64b-bfcb-4dfb-986c-dbf6b3b7a73d" />
+<img width="1920" height="1080" alt="Screenshot (32)" src="https://github.com/user-attachments/assets/50e48362-f9e4-4d8a-803c-879b49e7e10c" />
