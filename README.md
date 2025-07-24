@@ -198,6 +198,137 @@ If you found this project interesting, feel free to ⭐ it and follow for more!
 [👉 Visit Repository](https://github.com/mmdnayeem4705/Anamoly-Detection)
 
 ````
+Perfect meeyan! Since you're using **SQLite** and **Prisma**, here’s your **full working command set and dev flow** — tailored exactly for that setup 👇
+
+---
+
+## ✅ FULL DEV SETUP FOR SQLITE + PRISMA + NEXT.JS 15
+
+### ⚙️ 1. Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 🧱 2. Set Up the SQLite DB with Prisma
+
+```bash
+npx prisma db push
+```
+
+✅ This creates the database file (`dev.db`) and syncs models from `prisma/schema.prisma`.
+
+---
+
+### 🌱 3. (Optional) Seed Your Database
+
+If you have a `prisma/seed.ts` and you declared this in `package.json`:
+
+```json
+"prisma": {
+  "seed": "ts-node prisma/seed.ts"
+}
+```
+
+Then run:
+
+```bash
+npx prisma db seed
+```
+
+This will insert dummy data (like thumbnails, incidents, etc.)
+
+---
+
+### 🚀 4. Start Your Development Server
+
+```bash
+npm run dev
+```
+
+Then open:
+
+```
+http://localhost:3000
+```
+
+✅ You’ll see your CCTV Dashboard, incident player, and image thumbnails.
+
+---
+
+### 🔍 5. View or Test API Routes
+
+You can open or test these directly:
+
+| Method  | URL                                                     | Description                                      |
+| ------- | ------------------------------------------------------- | ------------------------------------------------ |
+| `GET`   | [`/api/incidents`](http://localhost:3000/api/incidents) | List all CCTV incident logs                      |
+| `PATCH` | `/api/incidents/[id]`                                   | Mark incident as resolved                        |
+| `GET`   | [`/api/health`](http://localhost:3000/api/health)       | Check API status                                 |
+| `GET`   | `/thumbnails/...`                                       | Load thumbnail images from `/public/thumbnails/` |
+
+Test with curl:
+
+```bash
+curl http://localhost:3000/api/incidents
+```
+
+---
+
+### 🔬 6. Visual DB Explorer (Optional)
+
+```bash
+npx prisma studio
+```
+
+Open browser:
+
+```
+http://localhost:5555
+```
+
+✅ You can view/edit data from your SQLite DB in a GUI.
+
+---
+
+### 📂 Folder Expectations (Important)
+
+Ensure:
+
+```
+project-root/
+├─ public/
+│  └─ thumbnails/
+│     └─ thumb_001.jpg ✅
+├─ prisma/
+│  └─ schema.prisma ✅
+│  └─ seed.ts ✅ (optional)
+├─ pages/ or app/
+│  └─ api/
+│     └─ incidents/
+│     └─ report.ts (if anonymous reporting)
+```
+
+---
+
+### 🧠 Common Issues Fix
+
+**Q: `GET /thumbnails/xyz.jpg` shows 404?**
+✅ FIX: Place your image inside `public/thumbnails/`
+📁 → Correct path: `public/thumbnails/thumb_001.jpg`
+
+---
+
+## 🏁 Summary Commands Recap
+
+```bash
+npm install                  # Install deps
+npx prisma db push          # Sync schema to SQLite
+npx prisma db seed          # (Optional) Seed initial data
+npm run dev                 # Start dev server
+npx prisma studio           # (Optional) GUI for DB
 
 ---
 
